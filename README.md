@@ -23,6 +23,13 @@ This project aims to explore and test the use of Quantum GPU (QGPU) with Python,
    See the [Qiskit Aer documentation](https://qiskit.org/ecosystem/aer/) for more details.
 
 ## How to Use
+
+## Quantum Circuit Example
+Below is a visual representation of the Bell state quantum circuit used in this project:
+
+![Bell State Quantum Circuit](bell_circuit.png)
+
+## How to Use
 Run the test script:
 ```bash
 python qgpu_test.py
