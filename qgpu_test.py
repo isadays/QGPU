@@ -1,5 +1,5 @@
 
-def run_qiskit_gpu_example():
+
 import matplotlib.pyplot as plt
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
@@ -48,9 +48,4 @@ def run_qgpu_bell_test(num_qubits=2, shots=2048):
 if __name__ == "__main__":
     print("QGPU (Quantum GPU) Bell state test with Qiskit Aer - Python")
     run_qgpu_bell_test()
-    print("Test finished.")
-
-if __name__ == "__main__":
-    print("QGPU (Quantum GPU) test with Qiskit - Python")
-    run_qiskit_gpu_example()
     print("Test finished.")
