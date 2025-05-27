@@ -1,24 +1,24 @@
 # QGPU Test Project
 
-Este projeto tem como objetivo explorar e testar o uso de Quantum GPU (QGPU) com Python.
+This project aims to explore and test the use of Quantum GPU (QGPU) with Python.
 
-## Estrutura do Projeto
-- `qgpu_test.py`: Script de exemplo para testar operações em QGPU (simulado).
-- `requirements.txt`: Dependências necessárias.
+## Project Structure
+- `qgpu_test.py`: Example script to test QGPU operations (simulated with Qiskit).
+- `requirements.txt`: Required dependencies.
 
-## Como usar
-1. Instale as dependências:
+## How to Use
+1. Install the dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-2. Execute o teste:
+2. Run the test:
    ```bash
    python qgpu_test.py
    ```
 
-## Observação
-Se você possui uma biblioteca específica de QGPU, adicione-a ao `requirements.txt` e adapte o script conforme a documentação da biblioteca.
+## Note
+If you have a specific QGPU library, add it to `requirements.txt` and adapt the script according to the library documentation.
 
 ---
 
-Este projeto é um ponto de partida para experimentos com computação quântica acelerada por GPU em Python.
+This project is a starting point for experiments with GPU-accelerated quantum computing in Python.
