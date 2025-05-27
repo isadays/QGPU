@@ -1,49 +1,54 @@
 
+def run_qiskit_gpu_example():
+import matplotlib.pyplot as plt
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from qiskit.visualization import plot_histogram
-import matplotlib.pyplot as plt
+import numpy as np
 
-
-def run_qiskit_gpu_example():
-    print("Creating quantum circuit...")
-    qc = QuantumCircuit(2, 2)
+def run_qgpu_bell_test(num_qubits=2, shots=2048):
+    print(f"Building a Bell state circuit with {num_qubits} qubits...")
+    qc = QuantumCircuit(num_qubits, num_qubits)
     qc.h(0)
     qc.cx(0, 1)
-    qc.measure([0, 1], [0, 1])
+    qc.measure(range(num_qubits), range(num_qubits))
 
-    print("Transpiling circuit for simulated backend (Aer qasm_simulator)...")
     backend = Aer.get_backend('qasm_simulator')
-    transpiled = transpile(qc, backend)
-    # Qiskit 2.x: use backend.run instead of execute
-    job = backend.run(transpiled, shots=1024)
+    transpiled = transpile(qc, backend, optimization_level=3)
+    print("Running simulation on Aer qasm_simulator (GPU if available)...")
+    job = backend.run(transpiled, shots=shots)
     result = job.result()
     counts = result.get_counts()
     print(f"Simulation results: {counts}")
 
-    print("Displaying result histogram...")
-    fig1 = plot_histogram(counts)
-    plt.title("Measurement Results Histogram")
-    plt.show()
+    # Efficient plotting
+    fig, axs = plt.subplots(1, 3, figsize=(18, 5))
+
+    # Histogram (Qiskit style)
+    plot_histogram(counts, ax=axs[0])
+    axs[0].set_title("Qiskit Histogram")
 
     # Pie chart
-    print("Displaying result pie chart...")
     labels = list(counts.keys())
     sizes = list(counts.values())
-    fig2, ax2 = plt.subplots()
-    ax2.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-    ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    plt.title("Measurement Results Pie Chart")
-    plt.show()
+    axs[1].pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    axs[1].set_title("Pie Chart")
+    axs[1].axis('equal')
 
     # Bar chart
-    print("Displaying result bar chart...")
-    fig3, ax3 = plt.subplots()
-    ax3.bar(labels, sizes, color='skyblue')
-    plt.xlabel('Bitstring')
-    plt.ylabel('Counts')
-    plt.title('Measurement Results Bar Chart')
+    axs[2].bar(labels, sizes, color='skyblue')
+    axs[2].set_xlabel('Bitstring')
+    axs[2].set_ylabel('Counts')
+    axs[2].set_title('Bar Chart')
+
+    plt.suptitle(f"QGPU Bell State Simulation Results ({shots} shots)")
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     plt.show()
+
+if __name__ == "__main__":
+    print("QGPU (Quantum GPU) Bell state test with Qiskit Aer - Python")
+    run_qgpu_bell_test()
+    print("Test finished.")
 
 if __name__ == "__main__":
     print("QGPU (Quantum GPU) test with Qiskit - Python")
